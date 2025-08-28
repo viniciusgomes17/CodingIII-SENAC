@@ -6,18 +6,18 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #89f7fe, #66a6ff);
   color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   min-height: 100vh;
+  transition: background 0.5s;
+  padding-bottom: 60px; /* espaço para footer fixo */
 }
 
 h1 {
   margin-bottom: 20px;
-  color: #222;
   text-align: center;
 }
 
@@ -59,6 +59,7 @@ h1 {
   text-align: center;
   max-width: 400px;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 #weather img {
@@ -66,14 +67,27 @@ h1 {
   margin: 10px 0;
 }
 
-@media (max-width: 600px) {
-  .search-box {
-    flex-direction: column;
-  }
+#history {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+}
 
-  .search-box button {
-    width: 100%;
-  }
+#history ul {
+  list-style: none;
+  padding: 0;
+}
+
+#history li {
+  padding: 5px 0;
+  color: #2563eb;
+}
+
+#history li:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 footer {
@@ -87,5 +101,15 @@ footer {
   border-top: 1px solid #ccc;
   font-size: 14px;
   color: #333;
-  z-index: 1000; 
+  z-index: 1000;
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
+  }
 }
