@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clima Agora 🌦️</title>
-  <link rel="stylesheet" href="Clima.css">
+  <link rel="stylesheet" href="ApiClima.css">
 </head>
 <body>
   <h1>🌍 Clima em Tempo Real</h1>
@@ -20,32 +20,36 @@
     <ul id="historyList"></ul>
   </div>
 
+  <footer>
+    <p>Copyright© 2025 por Vinícius Marques Gomes Silva</p>
+  </footer>
+
   <script>
-    
-    function mudarFundo(clima) {      //Função que altera fundo de acordo com o clima
+    // Alterar fundo conforme clima
+    function mudarFundo(clima) {
       const body = document.body;
       if(clima.includes("rain")) {
-        body.style.background = "linear-gradient(135deg, #667eea, #764ba2)"; 
+        body.style.background = "linear-gradient(135deg, #667eea, #764ba2)";
       } else if(clima.includes("cloud")) {
-        body.style.background = "linear-gradient(135deg, #bdc3c7, #2c3e50)"; 
+        body.style.background = "linear-gradient(135deg, #bdc3c7, #2c3e50)";
       } else if(clima.includes("snow")) {
-        body.style.background = "linear-gradient(135deg, #83a4d4, #b6fbff)"; 
+        body.style.background = "linear-gradient(135deg, #83a4d4, #b6fbff)";
       } else if(clima.includes("clear")) {
-        body.style.background = "linear-gradient(135deg, #fceabb, #f8b500)"; 
+        body.style.background = "linear-gradient(135deg, #fceabb, #f8b500)";
       } else {
-        body.style.background = "linear-gradient(135deg, #89f7fe, #66a6ff)"; 
+        body.style.background = "linear-gradient(135deg, #89f7fe, #66a6ff)";
       }
     }
 
-    
-    let cidadesHistorico = [];   //Histórico de cidades
+    // Histórico das últimas 5 cidades
+    let cidadesHistorico = [];
 
     function atualizarHistorico(city) {
       if(!cidadesHistorico.includes(city)) {
-        cidadesHistorico.unshift(city); 
+        cidadesHistorico.unshift(city);
       }
       if(cidadesHistorico.length > 5) {
-        cidadesHistorico.pop(); 
+        cidadesHistorico.pop();
       }
 
       const list = document.getElementById("historyList");
@@ -53,7 +57,6 @@
       cidadesHistorico.forEach(c => {
         const li = document.createElement("li");
         li.textContent = c;
-        li.style.cursor = "pointer";
         li.onclick = () => {
           document.getElementById("cityInput").value = c;
           getWeather();
@@ -64,13 +67,12 @@
 
     async function getWeather() {
       let city = document.getElementById("cityInput").value.trim();
-
       if (!city) {
         alert("Digite o nome da cidade!");
         return;
       }
 
-      const apiKey = "34f591a4cfe673d3b24cba513a51bd76"; 
+      const apiKey = "34f591a4cfe673d3b24cba513a51bd76";
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=pt_br`;
 
       const weatherDiv = document.getElementById("weather");
@@ -108,9 +110,4 @@
     }
   </script>
 </body>
-
-<footer>
-  <p>Copyright© 2025 por Vinícius Marques Gomes Silva</p>
-</footer>
-
 </html>
