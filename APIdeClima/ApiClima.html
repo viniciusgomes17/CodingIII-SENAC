@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clima Agora 🌦️</title>
+  <link rel="stylesheet" href="Clima.css">
+</head>
+<body>
+  <h1>🌍 Clima em Tempo Real</h1>
+
+  <div class="search-box">
+    <input type="text" id="cityInput" placeholder="Digite o nome da cidade">
+    <button onclick="getWeather()">Buscar</button>
+  </div>
+
+  <div id="weather"></div>
+
+  <div id="history">
+    <ul id="historyList"></ul>
+  </div>
+
+  <script>
+    
+    function mudarFundo(clima) {      //Função que altera fundo de acordo com o clima
+      const body = document.body;
+      if(clima.includes("rain")) {
+        body.style.background = "linear-gradient(135deg, #667eea, #764ba2)"; 
+      } else if(clima.includes("cloud")) {
+        body.style.background = "linear-gradient(135deg, #bdc3c7, #2c3e50)"; 
+      } else if(clima.includes("snow")) {
+        body.style.background = "linear-gradient(135deg, #83a4d4, #b6fbff)"; 
+      } else if(clima.includes("clear")) {
+        body.style.background = "linear-gradient(135deg, #fceabb, #f8b500)"; 
+      } else {
+        body.style.background = "linear-gradient(135deg, #89f7fe, #66a6ff)"; 
+      }
+    }
+
+    
+    let cidadesHistorico = [];   //Histórico de cidades
+
+    function atualizarHistorico(city) {
+      if(!cidadesHistorico.includes(city)) {
+        cidadesHistorico.unshift(city); 
+      }
+      if(cidadesHistorico.length > 5) {
+        cidadesHistorico.pop(); 
+      }
+
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+      cidadesHistorico.forEach(c => {
+        const li = document.createElement("li");
+        li.textContent = c;
+        li.style.cursor = "pointer";
+        li.onclick = () => {
+          document.getElementById("cityInput").value = c;
+          getWeather();
+        };
+        list.appendChild(li);
+      });
+    }
+
+    async function getWeather() {
+      let city = document.getElementById("cityInput").value.trim();
+
+      if (!city) {
+        alert("Digite o nome da cidade!");
+        return;
+      }
+
+      const apiKey = "34f591a4cfe673d3b24cba513a51bd76"; 
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=pt_br`;
+
+      const weatherDiv = document.getElementById("weather");
+      weatherDiv.innerHTML = "Carregando...";
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.status === 401) {
+          weatherDiv.innerHTML = `<p style="color:red;">Chave de API inválida. Verifique sua API Key!</p>`;
+          return;
+        }
+
+        if (response.status === 404) {
+          weatherDiv.innerHTML = `<p style="color:red;">Cidade não encontrada. Verifique o nome digitado!</p>`;
+          return;
+        }
+
+        weatherDiv.innerHTML = `
+          <h2>${data.name}, ${data.sys.country}</h2>
+          <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="Ícone do clima">
+          <p><strong>Temperatura:</strong> ${data.main.temp}°C</p>
+          <p><strong>Sensação térmica:</strong> ${data.main.feels_like}°C</p>
+          <p><strong>Condição:</strong> ${data.weather[0].description}</p>
+          <p><strong>Umidade:</strong> ${data.main.humidity}%</p>
+        `;
+
+        mudarFundo(data.weather[0].main.toLowerCase());
+        atualizarHistorico(data.name);
+
+      } catch (error) {
+        weatherDiv.innerHTML = `<p style="color:red;">Erro ao conectar com a API: ${error.message}</p>`;
+      }
+    }
+  </script>
+</body>
+
+<footer>
+  <p>Copyright© 2025 por Vinícius Marques Gomes Silva</p>
+</footer>
+
+</html>
