@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LocalExato</title>
+  <button id="toggleTheme">🌙 Modo Noturno</button>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+</head>
+<body>
+  <h1>📍 LocalExato</h1>
+
+  <section id="geo">
+    <h2>Seu País Atual</h2>
+    <button id="findCountry">Descobrir meu país</button>
+    <ul id="countryInfo"></ul>
+  </section>
+
+  <section id="camera">
+    <h2>Câmera</h2>
+    <video id="video" autoplay playsinline></video><br>
+    <button id="takePhoto">Tirar Foto</button>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <div id="photos"></div>
+  </section>
+
+  <footer>
+    <p>  Copyright© 2025 Vinicius Gomes. Todos Direitos Reservados.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

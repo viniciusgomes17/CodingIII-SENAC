@@ -1,0 +1,13 @@
+{
+  "short_name": "LocalExato",
+  "name": "LocalExato — País + Câmera",
+  "icons": [
+    { "src": "icons/icon-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "description": "PWA que mostra informações do país atual e tira fotos."
+}
