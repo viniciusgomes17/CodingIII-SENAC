@@ -1,0 +1,37 @@
+POST http://localhost:3000/api/livros
+Content-Type: application/json
+
+{
+  "titulo": "Livro Teste",
+  "autor": "Autor Teste",
+  "isbn": "12345",
+  "anoPublicacao": 2024,
+  "disponivel": true
+}
+
+### livro 2
+POST http://localhost:3000/api/livros
+Content-Type: application/json
+
+{
+  "titulo": "A Culpa é das Estrelas",
+  "autor": "John Green",
+  "isbn": "9788580572261",
+  "anoPublicacao": 2012,
+  "disponivel": true
+}
+
+###  livro 3
+POST http://localhost:3000/api/livros
+Content-Type: application/json
+
+{
+  "titulo": "O Código Da Vinci",
+  "autor": "Dan Brown",
+  "isbn": "9780385504201",
+  "anoPublicacao": 2003,
+  "disponivel": false
+}
+
+
+GET http://localhost:3000/api/livros
